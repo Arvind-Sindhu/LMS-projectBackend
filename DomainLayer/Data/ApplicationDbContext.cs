@@ -20,5 +20,6 @@ namespace DomainLayer.Data
             get;
             set;
         }
+
     }
 }

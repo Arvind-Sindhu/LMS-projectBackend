@@ -10,6 +10,8 @@ namespace RepositoryLayer.IRepo
 {
     public interface IApplyLeaveRepo<T> where T : ApplyLeave
     {
+
+
         IEnumerable<T> GetAll();
         T Get(int Id);
         void Insert(T entity);
@@ -17,5 +19,7 @@ namespace RepositoryLayer.IRepo
         void Delete(T entity);
 
         void SaveChanges();
+        IEnumerable<string> GetManagerNames();
+        List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName);
     }
 }

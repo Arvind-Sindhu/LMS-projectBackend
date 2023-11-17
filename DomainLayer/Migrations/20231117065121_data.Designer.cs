@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DomainLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231109111103_Apply")]
-    partial class Apply
+    [Migration("20231117065121_data")]
+    partial class data
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,11 +42,20 @@ namespace DomainLayer.Migrations
                     b.Property<string>("LeaveType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ManagerName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -39,11 +39,20 @@ namespace DomainLayer.Migrations
                     b.Property<string>("LeaveType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ManagerName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

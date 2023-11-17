@@ -13,7 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 // Add services to the container.
 builder.Services.AddScoped<IApplyLeaveService<ApplyLeave>, ApplyLeaveService>();
-builder.Services.AddScoped<IApplyLeaveRepo<ApplyLeave>, ApplyLeaveRepo<ApplyLeave>>();
+builder.Services.AddScoped<IApplyLeaveRepo<ApplyLeave>, ApplyLeaveRepo>();
 
 
 

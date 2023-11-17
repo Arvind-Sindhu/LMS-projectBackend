@@ -1,29 +1,26 @@
-﻿using DomainLayer.Data;
+﻿// ApplyLeaveRepo.cs
+using DomainLayer.Data;
 using DomainLayer.Model;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.IRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepositoryLayer.Repo
 {
-    public class ApplyLeaveRepo<T> : IApplyLeaveRepo<T> where T : ApplyLeave
+    public class ApplyLeaveRepo : IApplyLeaveRepo<ApplyLeave>
     {
-        #region property
         private readonly ApplicationDbContext _applicationDbContext;
-        private DbSet<T> entities;
-        #endregion
-        #region Constructor
+        private DbSet<ApplyLeave> entities;
+
         public ApplyLeaveRepo(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
-            entities = _applicationDbContext.Set<T>();
+            entities = _applicationDbContext.Set<ApplyLeave>();
         }
-        #endregion
-        public void Delete(T entity)
+
+        public void Delete(ApplyLeave entity)
         {
             if (entity == null)
             {
@@ -32,15 +29,28 @@ namespace RepositoryLayer.Repo
             entities.Remove(entity);
             _applicationDbContext.SaveChanges();
         }
-        public T Get(int Id)
+
+        public ApplyLeave Get(int Id)
         {
             return entities.SingleOrDefault(c => c.Id == Id);
         }
-        public IEnumerable<T> GetAll()
+
+        public IEnumerable<ApplyLeave> GetAll()
         {
             return entities.AsEnumerable();
         }
-        public void Insert(T entity)
+
+        public IEnumerable<string> GetManagerNames()
+        {
+            return entities.Select(e => e.ManagerName).Distinct().ToList();
+        }
+
+        public List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName)
+        {
+            return entities.Where(leave => leave.ManagerName == managerName).ToList();
+        }
+
+        public void Insert(ApplyLeave entity)
         {
             if (entity == null)
             {
@@ -49,12 +59,13 @@ namespace RepositoryLayer.Repo
             entities.Add(entity);
             _applicationDbContext.SaveChanges();
         }
-      
+
         public void SaveChanges()
         {
             _applicationDbContext.SaveChanges();
         }
-        public void Update(T entity)
+
+        public void Update(ApplyLeave entity)
         {
             if (entity == null)
             {
@@ -65,5 +76,3 @@ namespace RepositoryLayer.Repo
         }
     }
 }
-    
-

@@ -11,9 +11,15 @@ namespace ServiceLayer.IService
     {
         IEnumerable<T> GetAll();
         T Get(int Id);
+        IEnumerable<T> GetEmployeeByUserId(int userId);
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
+        IEnumerable<string> GetManagerNames();
+        List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName);
+
+
+
 
     }
 }

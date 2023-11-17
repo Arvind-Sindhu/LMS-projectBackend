@@ -1,29 +1,32 @@
-﻿using DomainLayer.Model;
+﻿using DomainLayer.Data;
+using DomainLayer.Model;
 using RepositoryLayer.IRepo;
 using ServiceLayer.IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Service
 {
     public class ApplyLeaveService : IApplyLeaveService<ApplyLeave>
     {
-        private readonly IApplyLeaveRepo<ApplyLeave> _ApplyLeaveRepo;
-        public ApplyLeaveService(IApplyLeaveRepo<ApplyLeave> ApplyLeaveRepo)
+        private readonly IApplyLeaveRepo<ApplyLeave> _applyLeaveRepo;
+        private readonly ApplicationDbContext _applicationDbContext;
+
+        public ApplyLeaveService(IApplyLeaveRepo<ApplyLeave> applyLeaveRepo, ApplicationDbContext applicationDbContext)
         {
-            _ApplyLeaveRepo = ApplyLeaveRepo;
+            _applyLeaveRepo = applyLeaveRepo;
+            _applicationDbContext = applicationDbContext;
         }
+
         public void Delete(ApplyLeave entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _ApplyLeaveRepo.Delete(entity);
-                    _ApplyLeaveRepo.SaveChanges();
+                    _applyLeaveRepo.Delete(entity);
+                    _applyLeaveRepo.SaveChanges();
                 }
             }
             catch (Exception)
@@ -31,52 +34,41 @@ namespace ServiceLayer.Service
                 throw;
             }
         }
+
         public ApplyLeave Get(int Id)
         {
             try
             {
-                var obj = _ApplyLeaveRepo.Get(Id);
-                if (obj != null)
-                {
-                    return obj;
-                }
-                else
-                {
-                    return null;
-                }
+                var obj = _applyLeaveRepo.Get(Id);
+                return obj;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
         public IEnumerable<ApplyLeave> GetAll()
         {
             try
             {
-                var obj = _ApplyLeaveRepo.GetAll();
-                if (obj != null)
-                {
-                    return obj;
-                }
-                else
-                {
-                    return null;
-                }
+                var obj = _applyLeaveRepo.GetAll();
+                return obj;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
         public void Insert(ApplyLeave entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _ApplyLeaveRepo.Insert(entity);
-                    _ApplyLeaveRepo.SaveChanges();
+                    _applyLeaveRepo.Insert(entity);
+                    _applyLeaveRepo.SaveChanges();
                 }
             }
             catch (Exception)
@@ -84,16 +76,52 @@ namespace ServiceLayer.Service
                 throw;
             }
         }
-      
+
         public void Update(ApplyLeave entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _ApplyLeaveRepo.Update(entity);
-                    _ApplyLeaveRepo.SaveChanges();
+                    _applyLeaveRepo.Update(entity);
+                    _applyLeaveRepo.SaveChanges();
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<string> GetManagerNames()
+        {
+            var managerNames = _applyLeaveRepo.GetManagerNames();
+            return managerNames;
+        }
+
+
+
+        public List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName)
+        {
+            try
+            {
+                var leaveStatusList = _applyLeaveRepo.GetLeaveStatusForManagedUsers(managerName);
+                return leaveStatusList.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+        public IEnumerable<ApplyLeave> GetEmployeeByUserId(int userId)
+        {
+            try
+            {
+                var leaves = _applyLeaveRepo.GetAll().Where(x => x.UserId == userId);
+                return leaves;
             }
             catch (Exception)
             {
