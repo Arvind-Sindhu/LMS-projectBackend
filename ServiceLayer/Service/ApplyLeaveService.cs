@@ -19,22 +19,21 @@ namespace ServiceLayer.Service
             _applicationDbContext = applicationDbContext;
         }
 
-        public void Delete(ApplyLeave entity)
+        public bool Delete(string Id)
         {
+
             try
             {
-                if (entity != null)
-                {
-                    _applyLeaveRepo.Delete(entity);
-                    _applyLeaveRepo.SaveChanges();
-                }
+                _applyLeaveRepo.Delete(Convert.ToInt32(Id));
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
-            }
-        }
 
+                return false;
+            }
+
+        }
         public ApplyLeave Get(int Id)
         {
             try
@@ -77,7 +76,7 @@ namespace ServiceLayer.Service
             }
         }
 
-        public void Update(ApplyLeave entity)
+        public void Update( ApplyLeave entity)
         {
             try
             {

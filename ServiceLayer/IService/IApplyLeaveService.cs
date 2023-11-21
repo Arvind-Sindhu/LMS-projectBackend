@@ -14,7 +14,7 @@ namespace ServiceLayer.IService
         IEnumerable<T> GetEmployeeByUserId(int userId);
         void Insert(T entity);
         void Update(T entity);
-        void Delete(T entity);
+        bool Delete(string id);
         IEnumerable<string> GetManagerNames();
         List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName);
 

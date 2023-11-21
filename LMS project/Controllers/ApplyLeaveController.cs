@@ -71,11 +71,13 @@ namespace LMS_project.Controllers
         }
 
         [HttpPut(nameof(UpdateApplyLeave))]
-        public IActionResult UpdateApplyLeave(ApplyLeave ApplyLeave)
+        public IActionResult UpdateApplyLeave( ApplyLeave applyLeave)
         {
-            if (ApplyLeave != null)
+            if (applyLeave != null)
             {
-                _Service.Update(ApplyLeave);
+                // Assuming your service has a method to update by userId
+                _Service.Update( applyLeave);
+
                 return Ok("Updated Successfully");
             }
             else
@@ -83,6 +85,7 @@ namespace LMS_project.Controllers
                 return BadRequest();
             }
         }
+
         [HttpGet(nameof(GetManagerNames))]
         public IActionResult GetManagerNames()
         {
@@ -138,18 +141,13 @@ namespace LMS_project.Controllers
 
 
 
-        [HttpDelete(nameof(DeleteApplyLeave))]
-        public IActionResult DeleteApplyLeave(ApplyLeave ApplyLeave)
+        [HttpDelete("DeleteApplyLeave/{id}")]
+        [HttpDelete("Delete/{id}")]
+        public IActionResult Delete(string id)
         {
-            if (ApplyLeave != null)
-            {
-                _Service.Delete(ApplyLeave);
-                return Ok("Deleted Successfully");
-            }
-            else
-            {
-                return BadRequest("Something went wrong");
-            }
+            var screenshot = _Service.Delete(id);
+            return Ok(screenshot);
         }
+
     }
 }

@@ -20,16 +20,15 @@ namespace RepositoryLayer.Repo
             entities = _applicationDbContext.Set<ApplyLeave>();
         }
 
-        public void Delete(ApplyLeave entity)
+        public void Delete(int Id)
         {
-            if (entity == null)
+            var result = _applicationDbContext.ApplyLeaves.FirstOrDefault(l => l.Id == Id);
+            if (result != null)
             {
-                throw new ArgumentNullException("entity");
+                _applicationDbContext.ApplyLeaves.Remove(result);
+                _applicationDbContext.SaveChanges();
             }
-            entities.Remove(entity);
-            _applicationDbContext.SaveChanges();
         }
-
         public ApplyLeave Get(int Id)
         {
             return entities.SingleOrDefault(c => c.Id == Id);

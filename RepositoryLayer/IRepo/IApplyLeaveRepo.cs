@@ -16,7 +16,7 @@ namespace RepositoryLayer.IRepo
         T Get(int Id);
         void Insert(T entity);
         void Update(T entity);
-        void Delete(T entity);
+        void Delete(int id);
 
         void SaveChanges();
         IEnumerable<string> GetManagerNames();
