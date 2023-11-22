@@ -42,19 +42,7 @@ namespace LMS_project.Controllers
             return Ok(leaves);
         }
 
-        [HttpGet(nameof(GetAllEmployee))]
-        public IActionResult GetAllEmployee()
-        {
-            var obj = _Service.GetAll();
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(obj);
-            }
-        }
+       
 
         [HttpPost(nameof(CreateApplyLeave))]
         public IActionResult CreateApplyLeave(ApplyLeave ApplyLeave)
