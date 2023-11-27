@@ -10,31 +10,18 @@ namespace LMS_project.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApplyLeaveController : ControllerBase
+    public class LeaveManagementSystemController : ControllerBase
     {
         private readonly IApplyLeaveService<ApplyLeave> _Service;
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public ApplyLeaveController(IApplyLeaveService<ApplyLeave> Service, ApplicationDbContext applicationDbContext)
+        public LeaveManagementSystemController(IApplyLeaveService<ApplyLeave> Service, ApplicationDbContext applicationDbContext)
         {
             _Service = Service;
             _applicationDbContext = applicationDbContext;
         }
 
-        [HttpGet(nameof(GetEmployeeById))]
-        public IActionResult GetEmployeeById(int Id)
-        {
-            var obj = _Service.Get(Id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(obj);
-            }
-        }
-
+    
         [HttpGet("employee/{userId}")]
         public IActionResult GetEmployeeLeavesByUserId(int userId)
         {
@@ -130,7 +117,7 @@ namespace LMS_project.Controllers
 
 
         [HttpDelete("DeleteApplyLeave/{id}")]
-        [HttpDelete("Delete/{id}")]
+       
         public IActionResult Delete(string id)
         {
             var screenshot = _Service.Delete(id);

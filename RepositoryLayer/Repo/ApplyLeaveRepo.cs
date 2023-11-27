@@ -70,8 +70,17 @@ namespace RepositoryLayer.Repo
             {
                 throw new ArgumentNullException("entity");
             }
-            entities.Update(entity);
-            _applicationDbContext.SaveChanges();
+
+            // Assuming "Id" is the primary key property of ApplyLeave
+            var existingEntity = entities.Find(entity.Id);
+
+            if (existingEntity != null)
+            {
+                // Update the properties of the existing entity with the new values
+                _applicationDbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
+                _applicationDbContext.SaveChanges();
+            }
         }
+
     }
 }
